@@ -1,96 +1,173 @@
-write a program to showcase the eclipse (surya paraga)
-//index html//
-DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="
-    width=device-width,initial-scale=1.0">
-    <meta http-equiv="X-UA-compatible"
-    content="ie=edge">
-    <title>solar system</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body><div class="container">
-  <div class="son"></div>
-  <div class="earth">
-  <div class="moon"></div></div></div>
-   
-  </body>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="utf-8">
+  <title>Solar System</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <img class="object" src="sun.png" alt="" id="sun">
+  <img class="object planet" src="mercury.png" alt="" id="mercury">
+  <img class="object planet" src="venus.png" alt="" id="venus">
+  <img class="object planet" src="earth.png" alt="" id="earth">
+  <img class="object planet" src="mars.png" alt="" id="mars">
+  <img class="object planet" src="jupiter.png" alt="" id="jupiter">
+  <img class="object planet" src="saturn.png" alt="" id="saturn">
+  <img class="object planet" src="uranus.png" alt="" id="uranus">
+  <img class="object planet" src="neptune.png" alt="" id="neptune">
+  <div class="object" id="moon"></div>
+
+  <div class="object p-orbit"></div>
+  <div class="object p-orbit"></div>
+  <div class="object p-orbit"></div>
+  <div class="object p-orbit"></div>
+  <div class="object p-orbit"></div>
+  <div class="object p-orbit"></div>
+  <div class="object p-orbit"></div>
+  <div class="object p-orbit"></div>
+  <div class="object" id="m-orbit"></div>
+
+  <img src="asteroid.png" class="object" alt="" id="belt">
+</body>
+  <script src="script.js"></script>
 </html>
-
-
-//style.css//
-body{
+body {
+  background: black;
   margin: 0;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  background-color: black;
+  padding: 0;
+  height: 200vmin;
 }
-.container
-{
-  font-size: 10 px;
-  width:40em;
-  height: 40em;
-  position: relative;
-  
-}
-.son{
-  position: absolute;
-  top: 15em;
-  left: 15em;
-  width: 10em;
-  height: 10em;
+
+.object {
   border-radius: 50%;
-  background-color: blue;
-  box-shadow: 00 3em yellow;
-}
-.earth,.moon{
   position: absolute;
-  border-style:relative;
-  border-color: white transparent;
-  border-width: 0.10em 0.1em 00;
-  border-radius: 50%;
-  
-}
-.earth{
-  top: 2em;
-  left: 2em;
-  width: 15em;
-  height: 15em;
-  animation:orbit 36.5em linear infinite;
-  
-  
-}
-.moon{
+  margin: auto;
   top: 0;
+  left: 0;
   right: 0;
-  width: 4em;
-  height: 4em;
-  animation: orbit 2.7s linear infinite;
+  bottom: 0;
+  transform: translateY( 50vmin );
 }
-  .earth::before,
-  .moon::before{
-    content: "";
-    position:absolute;
-    border-radius:50%;
+
+.p-orbit, #m-orbit{
+  border: 0.1vmin solid lightgrey;
+  opacity: 0.5;
+  background: transparent;
 }
-.earth::before{
-  top:2.8em;
-  right:2.8em;
-  width:1.2em;
-  height:1.2em;
-  background-color: silver;
-  
+
+#belt {
+  height: 97vmin;
+  width: 97vmin;
+  animation: spin 50s infinite linear;
+  margin-top: 50vmin;
 }
-@keyframes orbit{
-  to{
-    transform: rotate(360deg);
-  }
+
+@keyframes spin{
+  0%{ transform: rotate(0deg) }
+  100%{ transform: rotate(360deg) }
 }
+
+#m-orbit {
+  height: 8vmin;
+  width: 8vmin;
 }
+
+.planet, #moon {
+  z-index: 100;
 }
+
+#sun {
+  height: 12vmin;
+  width: 12vmin;
+}
+
+#moon {
+  height: 1vmin;
+  width: 1vmin;
+  background-color: white;
+}
+
+#mercury {
+  height: 2vmin;
+  width: 2vmin;
+}
+
+#venus {
+  height: 3vmin;
+  width: 3vmin;
+}
+
+#earth {
+  height: 4vmin;
+  width: 4vmin;
+}
+
+#mars {
+  height: 3.5vmin;
+  width: 3.5vmin;
+}
+
+#jupiter {
+  height: 12vmin;
+  width: 12vmin;
+}
+
+#saturn {
+  height: 12vmin;
+  width: 12vmin;
+  border-radius: 0%;
+}
+
+#uranus {
+  height: 5vmin;
+  width: 5vmin;
+}
+
+#neptune {
+  height: 4vmin;
+  width: 4vmin;
+}
+
+const planets = document.querySelectorAll('.planet')
+const p_radii = [22,33,50,70,112,138,165,190]
+let p_radians = new Array(8).fill(0)
+const p_velocities = [1.607, 1.174,1,0.802, 0.434, 0.323, 0.228, 0.182]
+
+const moon = document.querySelector('#moon')
+const m_radius = 8
+let m_radians = 0
+const m_velocity = 10
+
+const p_orbits = document.querySelectorAll('.p-orbit')
+const m_orbit = document.querySelector('#m-orbit')
+
+p_orbits.forEach((p_orbit, index)=>{
+  p_orbit.style.height = `${p_radii[index]}vmin`
+  p_orbit.style.width = `${p_radii[index]}vmin`
+})
+
+setInterval( ()=> {
+  planets.forEach( (planet, index)=>{
+    planet.style.left = `${Math.cos(p_radians[index]) * p_radii[index]}vmin`
+    planet.style.top = `${Math.sin(p_radians[index]) * p_radii[index]}vmin`
+    p_radians[index] += p_velocities[index] * 0.02
+  })
+
+  moon.style.left = `${earthX() + (Math.cos(m_radians) * m_radius )}vmin`
+  moon.style.top = `${earthY() + (Math.sin(m_radians) * m_radius )}vmin`
+  m_radians += m_velocity * 0.02
+
+  m_orbit.style.left = `${earthX()}vmin`
+  m_orbit.style.top = `${earthY()}vmin`
+}, 1000/60)
+
+function earthX(){
+  return Number( planets[2].style.left.split('vmin')[0] )
+}
+
+function earthY(){
+  return Number( planets[2].style.top.split('vmin')[0] )
+}
+
 
