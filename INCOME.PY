@@ -11,7 +11,7 @@ def calculate_income_tax(income):
     tax = (income - 1000000) * 0.3 + 112500
 
   return tax
-income = 700000
+income =int(input("Enter your income:: "))
 tax = calculate_income_tax(income)
 print("Income:", income)
 print("Tax:", tax)
